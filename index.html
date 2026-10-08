@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' ws: wss: https://*.supabase.co https://*.supabase.in;" />
+    <link rel="apple-touch-icon" href="/pwa-192x192.png" />
+    <title>EMT Foods Exports — Premium Zambian Products</title>
+    <meta name="description" content="EMT Foods Exports: Certified Zambian food exports including grains, dried goods, and traditional textiles. Ship globally." />
+    <!-- Prevent flash: default to light, enable dark only when preferred -->
+    <style>
+      html { background: #F8F9FB; color: #0F1724; }
+    </style>
+    <script>
+      // Restore theme preference immediately to prevent flash
+      try {
+        const t = localStorage.getItem('emt-theme');
+        const sysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        // Enable dark only if user explicitly chose 'dark' or no choice but system prefers dark
+        if (t === 'dark' || (t === null && sysDark)) {
+          document.documentElement.classList.add('dark');
+          try { document.documentElement.setAttribute('data-theme', 'dark'); } catch(e) {}
+        } else {
+          document.documentElement.classList.remove('dark');
+          try { document.documentElement.setAttribute('data-theme', 'light'); } catch(e) {}
+        }
+      } catch(e) {}
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

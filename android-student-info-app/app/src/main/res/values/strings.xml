@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">StudentInfoApp</string>
+
+    <string name="student_info">
+        Student Information\n\n
+        Name: Trezo Mulumba\n
+        Class: 12A\n
+        College: Cavendish University Zambia\n
+        Address: Lusaka, Zambia
+    </string>
+</resources>

@@ -1,0 +1,6 @@
+{
+  "name": "EMT Foods Exports",
+  "description": "Global logistics and premium agricultural sourcing platform for Dried Kapenta, Bream, Palm Oil, Sesame Seeds, Cotton Fabrics, and custom vendor exports.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

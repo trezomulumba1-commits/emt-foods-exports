@@ -1,0 +1,104 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id              String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  created_at      DateTime  @default(now())
+  sku             String
+  name            String
+  description     String
+  category        String
+  image           String
+  price           Float
+  qualityGrade    String
+  moisturePercent Float?
+  batchNumber     String
+  warehouse       String
+  inspectionNotes String?
+  harvestDate     String
+  supplier        String
+  expiryDate      String?
+
+  @@map("products")
+}
+
+model QuoteRequest {
+  id                  String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  created_at          DateTime  @default(now())
+  customer_name       String
+  customer_email      String
+  customer_phone      String?
+  product_name        String?
+  requested_quantity  Float?
+  destination_country String?
+  message             String?
+  status              String?
+
+  @@map("quote_requests")
+}
+
+model ExportOrder {
+  id                      String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  created_at              DateTime  @default(now())
+  order_reference         String
+  customer_name           String
+  customer_email          String?
+  customer_phone          String?
+  destination_country     String
+  export_status           String
+  carrier_name            String?
+  carrier_tracking_number String?
+  expected_delivery       String?
+  notes                   String?
+  product_name            String?
+  
+  status_updates          ExportStatusUpdate[]
+
+  @@map("export_orders")
+}
+
+model ExportStatusUpdate {
+  id              String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  created_at      DateTime     @default(now())
+  export_order_id String       @db.Uuid
+  status          String
+  remarks         String?
+  updated_by      String?
+  
+  export_order    ExportOrder  @relation(fields: [export_order_id], references: [id], onDelete: Cascade)
+
+  @@map("export_status_updates")
+}
+
+model Profile {
+  id               String    @id @db.Uuid // Matches Supabase Auth user id
+  created_at       DateTime  @default(now())
+  full_name        String?
+  company_name     String?
+  phone_number     String?
+  shipping_address String?
+  role             String?   @default("customer")
+
+  @@map("profiles")
+}
+
+model PurchaseRequest {
+  id               String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  created_at       DateTime  @default(now())
+  customer_name    String
+  customer_email   String
+  customer_phone   String?
+  shipping_address String?
+  items            String
+  total_value      Float
+  status           String    @default("Pending")
+  notes            String?
+
+  @@map("purchase_requests")
+}
